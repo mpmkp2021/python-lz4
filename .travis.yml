@@ -1,87 +1,18 @@
 matrix:
   include:
-    - name: linux-py35
-      language: python
-      python: 3.5
-      sudo: required
-      services:
-        - docker
-      env:
-        - CIBW_BUILD=cp35-*
-    - name: linux-py36
-      language: python
-      python: 3.6
-      sudo: required
-      services:
-        - docker
-      env:
-        - CIBW_BUILD=cp36-*
-    - name: linux-py37
-      language: python
-      python: 3.7
-      dist: xenial
-      sudo: required
-      services:
-        - docker
-      env:
-        - CIBW_BUILD=cp37-*
     - name: linux-py38
       language: python
       python: 3.8
-      dist: xenial
+      dist: focal
+      arch: arm64-graviton2
+      virt: lxd
+      group: edge
       sudo: required
       services:
         - docker
       env:
         - CIBW_BUILD=cp38-*
-    - name: osx-py35
-      os: osx
-      language: generic
-      env:
-        - CIBW_BUILD=cp35-*
-        - CIBW_TEST_COMMAND="pushd {project}; tox tests ; popd"
-        - CIBW_BEFORE_BUILD="python -m pip install -U pip; python -m pip install tox twine"
-      install:
-        - python -m pip install cibuildwheel==1.1.0
-        - python -m pip install twine
-      script:
-        - cibuildwheel --output-dir dist
-    - name: osx-py36
-      os: osx
-      language: generic
-      env:
-        - CIBW_BUILD=cp36-*
-        - CIBW_TEST_COMMAND="pushd {project}; tox tests ; popd"
-        - CIBW_BEFORE_BUILD="python -m pip install -U pip; python -m pip install tox twine"
-      install:
-        - python -m pip install cibuildwheel==1.1.0
-        - python -m pip install twine
-      script:
-        - cibuildwheel --output-dir dist
-    - name: osx-py37
-      os: osx
-      language: generic
-      env:
-        - CIBW_BUILD=cp37-*
-        - CIBW_TEST_COMMAND="pushd {project}; tox tests ; popd"
-        - CIBW_BEFORE_BUILD="python -m pip install -U pip; python -m pip install tox twine"
-      install:
-        - python -m pip install cibuildwheel==1.1.0
-        - python -m pip install twine
-      script:
-        - cibuildwheel --output-dir dist
-    - name: osx-py38
-      os: osx
-      language: generic
-      env:
-        - CIBW_BUILD=cp38-*
-        - CIBW_TEST_COMMAND="pushd {project}; tox tests ; popd"
-        - CIBW_BEFORE_BUILD="python -m pip install -U pip; python -m pip install tox twine"
-      install:
-        - python -m pip install cibuildwheel==1.1.0
-        - python -m pip install twine
-      script:
-        - cibuildwheel --output-dir dist
+        - CIBW_MANYLINUX_AARCH64_IMAGE= quay.io/pypa/manylinux2014_aarch64:latest
 install:
   - python -m pip install -U pip
   - python -m pip install cibuildwheel==1.1.0
