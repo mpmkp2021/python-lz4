@@ -18,10 +18,10 @@ install:
   - python -m pip install cibuildwheel==1.1.0
   - python -m pip install codecov tox twine
 script:
-  - tox tests
-  - codecov
+  #- tox tests
+  #- codecov
   - git stash --all # Restore fresh checkout
-  - cibuildwheel --output-dir dist
+  - CIBW_MANYLINUX_AARCH64_IMAGE= quay.io/pypa/manylinux2014_aarch64:latest CIBW_BUILD=cp38-* cibuildwheel --output-dir dist
 deploy:
   - provider: pypi
     # server: https://test.pypi.org/legacy/
