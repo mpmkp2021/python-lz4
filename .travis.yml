@@ -12,7 +12,7 @@ matrix:
         - docker
       env:
         - CIBW_BUILD=cp38-*
-        - CIBW_MANYLINUX_AARCH64_IMAGE=quay.io/pypa/manylinux2014_aarch64:latest
+        #- CIBW_MANYLINUX_AARCH64_IMAGE=quay.io/pypa/manylinux2014_aarch64:latest
 install:
   - python -m pip install -U pip
   - python -m pip install cibuildwheel==1.7.4 
@@ -21,7 +21,8 @@ script:
   #- tox tests
   #- codecov
   - git stash --all # Restore fresh checkout
-  - CIBW_MANYLINUX_AARCH64_IMAGE=quay.io/pypa/manylinux2014_aarch64:latest CIBW_BUILD=cp38-* cibuildwheel --output-dir dist
+  #- CIBW_MANYLINUX_AARCH64_IMAGE=quay.io/pypa/manylinux2014_aarch64:latest CIBW_BUILD=cp38-* cibuildwheel --output-dir dist
+  - cibuildwheel --output-dir dist
 deploy:
   - provider: pypi
     # server: https://test.pypi.org/legacy/
